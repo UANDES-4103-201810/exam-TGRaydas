@@ -1,0 +1,55 @@
+<div class="shopping-container">
+  <p></p>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Size</th>
+    </tr>
+    <% @list.each do |pizza| %>
+      <tr>
+        <td><%= pizza.name %></td>
+        <td>$<%= (pizza.recipe.price + pizza.crust.price).to_s %></td>
+        <td><%= pizza.crust.size %></td>
+      </tr>
+    <% end %>
+  </table>
+  <p style="background-color: green;height: 2px"></p>
+  <table>
+      <tr>
+        <td>Address:</td>
+        <td><%= @the_info["line1"] %></td>
+      </tr>
+      <tr>
+        <td>Address detail:</td>
+        <td><%= @the_info["line2"] %></td>
+      </tr>
+      <tr>
+        <td>Phone</td>
+        <td><%= @the_info["phone"] %></td>
+      </tr>
+    <tr>
+      <td>Total Price</td>
+      <td>$<%= @total_price %></td>
+    </tr>
+  </table>
+  <p></p>
+  <a href="#" id="lets_do_some_ajax" style="background-color: green;padding: 10px;color: white;font-size: 25px">Pay</a>
+</div>
+
+<script>
+function SendOrder() {
+    var first_data = "<%= @ids_data %>";
+    var address1 = "<%= @the_info["line1"] %>";
+    var address2 = "<%= @the_info["line2"] %>";
+    var phone = "<%= @the_info["phone"] %>";
+
+    var the_data = {ids: first_data, line1: address1, line2: address2, phone: phone}
+    $.post( "/orders/create", the_data, function( data ) {
+
+    });
+}
+$("#lets_do_some_ajax").click(function () {
+   SendOrder();
+});
+</script>
