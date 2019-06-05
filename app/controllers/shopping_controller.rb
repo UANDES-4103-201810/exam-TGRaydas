@@ -2,12 +2,14 @@ class ShoppingController < ApplicationController
   def index
     @list = []
     all_ids = cookies[:pizza_id]
-    all_ids = all_ids.split(",")
-    all_ids.each do |i|
-      if i != ""
-        @list.push(Pizza.find(i))
-        end
-    end
+    if all_ids != nil
+      all_ids = all_ids.split(",")
+      all_ids.each do |i|
+        if i != ""
+          @list.push(Pizza.find(i))
+          end
+      end
+    end  
   end
 
   def remove_from_list
